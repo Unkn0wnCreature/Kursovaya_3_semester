@@ -15,7 +15,7 @@ class Contact {
     list<string> list_of_phone_numbers;
 
     public:
-    Contact(string firstName, string secondName, string email, string phoneNumber);
+    Contact(string firstName = "", string secondName = "", string email = "", string phoneNumber = "");
     Contact(string firstName, string secondName, string lastName, string birthDate, string address, string email, list<string> list_of_phone_numbers);
     Contact(const Contact &c);
     ~Contact();
@@ -23,6 +23,7 @@ class Contact {
     bool set_firstName(string& firstName);
     bool set_secondName(string& secondName);
     bool set_lastName(string& lastName);
+    bool set_birthDate(string& birthDate);
     bool set_address(string& address);
     bool set_email(string& email);
     bool set_list_of_phones(list<string> list_of_phones);
@@ -40,6 +41,7 @@ class Contact {
     bool isValidEmail(const string& email) const;
     bool isValidPhone(const string& phone) const;
     bool isValidDate(const string& date) const;
+    bool isValidAddress(const string& address) const;
 
     string trim(const string& string) const;
     string normalizePhoneNumber(const string& PhoneNumber);

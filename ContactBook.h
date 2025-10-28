@@ -13,6 +13,7 @@ class ContactBook {
     ContactBook(const ContactBook& contact_book);
     ~ContactBook();
 
+    bool createContactByInput();
     bool addContact(const Contact& contact);
     bool deleteContact();
     bool updateContact();

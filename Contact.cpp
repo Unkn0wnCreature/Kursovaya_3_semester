@@ -53,6 +53,13 @@ bool Contact::set_lastName(string& lastName){
     return true;
 }
 
+bool Contact::set_birthDate(string& birthDate){
+    string trimmed = trim(birthDate);
+    if (!isValidDate(trimmed)){return false;}
+    this->birthDate = trimmed;
+    return true;
+}
+
 bool Contact::set_address(string& address){
     this->address = trim(address);
     return true;
@@ -140,6 +147,13 @@ bool Contact::isValidDate(const string& date) const {
     if (year == currentYear && month > currentMonth) return false;
     if (year == currentYear && month == currentMonth && day > currentDay) return false;
     return true;
+}
+
+bool Contact::isValidAddress(const string& address) const{
+    if (address.empty()){return true;}
+
+    regex pattern("^[a-zA-Zа-яА-Я0-9\\s\\-,.#№()/]+$");
+    return regex_match(address, pattern);
 }
 
 string Contact::trim(const string& string) const{
