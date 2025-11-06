@@ -9,11 +9,11 @@ class ContactBook {
     list<Contact> contactBook;
     //string filename;
     public:
-    ContactBook(list<Contact> contactBook);
+    ContactBook(list<Contact> contactBook = {});
     ContactBook(const ContactBook& contact_book);
     ~ContactBook();
 
-    bool createContactByInput();
+    Contact createContactByInput();
     bool addContact(const Contact& contact);
     bool deleteContact();
     bool updateContact();

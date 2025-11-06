@@ -13,9 +13,9 @@ ContactBook::ContactBook(const ContactBook& contact_book){
 
 ContactBook::~ContactBook(){};
 
-bool ContactBook::createContactByInput(){
+Contact ContactBook::createContactByInput(){
     Contact contact;
-    string firstName, secondName, lastName, birthDate, address, email;
+    string firstName, secondName, lastName, birthDate, address, email, phone_number;
 
     cout<<"Enter first name: "<<endl;
     getline(cin, firstName);
@@ -75,6 +75,17 @@ bool ContactBook::createContactByInput(){
         if (!contact.set_email(email)){cout<<"Ошибка присвоения email."<<endl;}
     }
 
+    cout<<"Enter phone number (keep empty, if you want to stop adding phone numbers): "<<endl;
+    getline(cin, phone_number);
+    while (!phone_number.empty()){
+        while (!contact.isValidPhone(phone_number)){
+            cout<<"Enter phone number again: "<<endl;
+            getline(cin, phone_number);
+        }
+        if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка добавления номера в список."<<endl;}
+    }
+
+    return contact;
 }
 
 bool ContactBook::addContact(const Contact& contact){
