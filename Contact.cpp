@@ -156,13 +156,6 @@ bool Contact::isValidAddress(const string& address) const{
     return regex_match(address, pattern);
 }
 
-string Contact::trim(const string& string) const{
-    size_t start = string.find_first_not_of(" \t\n\r");
-    size_t end = string.find_last_not_of(" \t\n\r");
-    if (start == string::npos){return "";}
-    return string.substr(start, end - start + 1);
-}
-
 string Contact::normalizePhoneNumber(const string& phoneNumber){
     string result;
     for (char c : phoneNumber) {
@@ -186,4 +179,18 @@ bool Contact::addPhoneNumber(const string& phoneNumber){
     if (!isValidPhone(phoneNumber)){return false;}
     this->list_of_phone_numbers.push_back(phoneNumber);
     return true;
+}
+
+void Contact::showContact(){
+    cout<<"First name: " << firstName <<endl;
+    cout<<"Second name: " <<secondName <<endl;
+    cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
+    
+}
+
+string trim(const string& string){
+    size_t start = string.find_first_not_of(" \t\n\r");
+    size_t end = string.find_last_not_of(" \t\n\r");
+    if (start == string::npos){return "";}
+    return string.substr(start, end - start + 1);
 }

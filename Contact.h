@@ -43,7 +43,11 @@ class Contact {
     bool isValidDate(const string& date) const;
     bool isValidAddress(const string& address) const;
 
-    string trim(const string& string) const;
+    
     string normalizePhoneNumber(const string& PhoneNumber);
     bool addPhoneNumber(const string& PhoneNumber);
+
+    void showContact();
 };
+
+string trim(const string& string);
