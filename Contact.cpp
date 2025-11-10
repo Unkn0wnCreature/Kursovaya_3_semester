@@ -4,19 +4,6 @@
 #include <ctime>
 using namespace std;
 
-
-/*
-Contact::Contact(string firstName, string secondName, string email, string phoneNumber){
-    this->firstName = firstName;
-    this->secondName = secondName;
-    this->lastName = specialNoneString;
-    this->birthDate = specialNoneString;
-    this->address = specialNoneString;
-    this->email = email;
-    this->list_of_phone_numbers.emplace_back(phoneNumber);
-}
-*/
-
 Contact::Contact(string firstName, string secondName, string email, list<string> list_of_phone_numbers, string lastName, string birthDate, string address){
     this->firstName = firstName;
     this->secondName = secondName;
