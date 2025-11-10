@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 using namespace std;
+string specialNoneString = "None";
 
 ContactBook::ContactBook(list<Contact> contactBook){
     this->contactBook = contactBook;
@@ -13,78 +14,59 @@ ContactBook::ContactBook(const ContactBook& contact_book){
 
 ContactBook::~ContactBook(){};
 
+void ContactBook::categoryInput(string category, string& inputString, string status){
+    cout<<"Enter "<< category <<" ("<< status <<"):"<<endl;
+    getline(cin, inputString);
+}
+
 Contact ContactBook::createContactByInput(){
     Contact contact;
     string firstName, secondName, lastName, birthDate, address, email, phone_number;
 
-    cout<<"Enter first name: "<<endl;
-    getline(cin, firstName);
-    if (!firstName.empty()){
-        while (!contact.isValidName(firstName)){
-            cout<<"Enter first name again: "<<endl;
-            getline(cin, firstName);
-        }
-        if (!contact.set_firstName(firstName)){cout<<"Ошибка присвоения имени."<<endl;}
-        //contact.set_firstName(firstName);
-    }
-    
+    categoryInput("first name", firstName);
+    while (firstName.empty()){categoryInput("first name", firstName);}
+    while (!contact.isValidName(firstName)){categoryInput("first name", firstName);}
+    if (!contact.set_firstName(firstName)){cout<<"Ошибка присвоения имени."<<endl;}
 
-    cout<<"Enter second name: "<<endl;
-    getline(cin, secondName);
-    if (!secondName.empty()){
-        while (!contact.isValidName(secondName)){
-            cout<<"Enter second name again: "<<endl;
-            getline(cin, secondName);
-        }
-        if (!contact.set_secondName(secondName)){cout<<"Ошибка присвоения фамилии."<<endl;}
-        //contact.set_secondName(secondName);
-    }
 
-    cout<<"Enter last name (optional): "<<endl;
-    getline(cin, lastName);
-    while (!contact.isValidName(lastName)){
-        cout<<"Enter last name again (optional): "<<endl;
-        getline(cin, lastName);
-    }
+    categoryInput("second name", secondName);
+    while (secondName.empty()){categoryInput("second name", secondName);}
+    while (!contact.isValidName(secondName)){categoryInput("second name", secondName);}
+    if (!contact.set_secondName(secondName)){cout<<"Ошибка присвоения фамилии."<<endl;}
+
+    categoryInput("last name", lastName, "optional");
+    while (!contact.isValidName(lastName)){categoryInput("last name", lastName, "optional");}
     if (!contact.set_lastName(lastName)){cout<<"Ошибка присвоения отчества."<<endl;}
-    //contact.set_lastName(lastName);
 
-    cout<<"Enter birth date (optional): "<<endl;
-    getline(cin, birthDate);
-    while (!contact.isValidDate(birthDate)){
-        cout<<"Enter birth date again (optional): "<<endl;
-        getline(cin, birthDate);
-    }
+    categoryInput("birth date", birthDate, "optional");
+    while (!contact.isValidDate(birthDate)){categoryInput("birth date", birthDate, "optional");}
     if (!contact.set_birthDate(birthDate)){cout<<"Ошибка присвоения даты рождения."<<endl;}
 
-    cout<<"Enter address (optional): "<<endl;
-    getline(cin, address);
-    while (!contact.isValidAddress(address)){
-        cout<<"Enter address again (optional): "<<endl;
-        getline(cin, address);
-    }
-    if (!contact.set_address(address)){cout<<"Ошибка присвоения адреса."<<endl;}
+    categoryInput("address", address, "optional");
+    while (!contact.isValidAddress(address)){categoryInput("address", address, "optional");}
+    if (!contact.set_address(address)){cout<<"Ошибка присвоения даты адреса."<<endl;}
 
-    cout<<"Enter email: "<<endl;
-    getline(cin, email);
-    if (!email.empty()){
-        while (!contact.isValidEmail(email)){
-            cout<<"Enter email again: "<<endl;
-            getline(cin, email);
-        }
-        if (!contact.set_email(email)){cout<<"Ошибка присвоения email."<<endl;}
-    }
+    categoryInput("email", email);
+    while (email.empty()){categoryInput("email", email);}
+    while (!contact.isValidEmail(email)){categoryInput("email", email);}
+    if (!contact.set_email(email)){cout<<"Ошибка присвоения email."<<endl;}
 
-    cout<<"Enter phone number (keep empty, if you want to stop adding phone numbers): "<<endl;
-    getline(cin, phone_number);
+    categoryInput("phone number", phone_number);
+    while (phone_number.empty()){categoryInput("phone number", phone_number);}
+    while (!contact.isValidPhone(phone_number)){categoryInput("phone number", phone_number);}
+    if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка присвоения номера телефона."<<endl;}
+
+    categoryInput("phone number", phone_number, "keep empty to stop adding phone numbers");
     while (!phone_number.empty()){
         while (!contact.isValidPhone(phone_number)){
-            cout<<"Enter phone number again: "<<endl;
-            getline(cin, phone_number);
+            categoryInput("phone number", phone_number);
+            if (phone_number.empty()){break;}
+            if (contact.isValidPhone(phone_number)){
+                if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка присвоения фамилии."<<endl;}
+                break;
+            }
         }
-        if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка добавления номера в список."<<endl;}
     }
-
     return contact;
 }
 

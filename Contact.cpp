@@ -2,15 +2,22 @@
 #include <regex>
 #include <stdexcept>
 #include <ctime>
+using namespace std;
 
+
+/*
 Contact::Contact(string firstName, string secondName, string email, string phoneNumber){
     this->firstName = firstName;
     this->secondName = secondName;
+    this->lastName = specialNoneString;
+    this->birthDate = specialNoneString;
+    this->address = specialNoneString;
     this->email = email;
     this->list_of_phone_numbers.emplace_back(phoneNumber);
 }
-/*
-Contact::Contact(string firstName, string secondName, string lastName, string birthDate = "", string address = "", string email, list<string> list_of_phone_numbers){
+*/
+
+Contact::Contact(string firstName, string secondName, string email, list<string> list_of_phone_numbers, string lastName, string birthDate, string address){
     this->firstName = firstName;
     this->secondName = secondName;
     this->lastName = lastName;
@@ -19,7 +26,7 @@ Contact::Contact(string firstName, string secondName, string lastName, string bi
     this->email = email;
     this->list_of_phone_numbers = list_of_phone_numbers;
 }
-*/
+
 Contact::Contact(const Contact& c){
     firstName = c.firstName;
     secondName = c.secondName;
@@ -97,12 +104,12 @@ bool Contact::isValidName(const string& name) const {
     if (name.empty()) return true; // Отчество может быть пустым
     
     regex pattern("^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9\\-\\s]*[a-zA-Zа-яА-Я0-9]$");
-        return regex_match(name, pattern);
+        return regex_match(trim(name), pattern);
 }
 
 bool Contact::isValidEmail(const string& email) const {
     regex pattern("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$");
-    return regex_match(email, pattern);
+    return regex_match(trim(email), pattern);
 }
 
 bool Contact::isValidPhone(const std::string& phoneNumber) const {
@@ -113,11 +120,12 @@ bool Contact::isValidPhone(const std::string& phoneNumber) const {
     
     // Проверяем различные форматы номеров
     regex pattern("^(\\+7|8)?[0-9]{10}$");
-    return regex_match(cleanPhone, pattern);
+    return regex_match(trim(cleanPhone), pattern);
 }
 
 bool Contact::isValidDate(const string& date) const {
     // Формат: DD-MM-YYYY
+    if (date.empty() || date == "") return true;
     if (date.length() != 10) return false;
     if (date[2] != '-' || date[5] != '-') return false;
     int year, month, day;
@@ -153,7 +161,7 @@ bool Contact::isValidAddress(const string& address) const{
     if (address.empty()){return true;}
 
     regex pattern("^[a-zA-Zа-яА-Я0-9\\s\\-,.#№()/]+$");
-    return regex_match(address, pattern);
+    return regex_match(trim(address), pattern);
 }
 
 string Contact::normalizePhoneNumber(const string& phoneNumber){
@@ -175,22 +183,22 @@ string Contact::normalizePhoneNumber(const string& phoneNumber){
     return result;
 }
 
+string Contact::trim(const string& string) const{
+    size_t start = string.find_first_not_of(" \t\n\r");
+    size_t end = string.find_last_not_of(" \t\n\r");
+    if (start == string::npos){return "";}
+    return string.substr(start, end - start + 1);
+}
+
 bool Contact::addPhoneNumber(const string& phoneNumber){
     if (!isValidPhone(phoneNumber)){return false;}
     this->list_of_phone_numbers.push_back(phoneNumber);
     return true;
 }
 
-void Contact::showContact(){
+void Contact::show(){
     cout<<"First name: " << firstName <<endl;
     cout<<"Second name: " <<secondName <<endl;
     cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
     
-}
-
-string trim(const string& string){
-    size_t start = string.find_first_not_of(" \t\n\r");
-    size_t end = string.find_last_not_of(" \t\n\r");
-    if (start == string::npos){return "";}
-    return string.substr(start, end - start + 1);
 }

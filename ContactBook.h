@@ -13,6 +13,7 @@ class ContactBook {
     ContactBook(const ContactBook& contact_book);
     ~ContactBook();
 
+    void categoryInput(string category, string& inputString, string status = "compulsory");
     Contact createContactByInput();
     bool addContact(const Contact& contact);
     bool deleteContact();

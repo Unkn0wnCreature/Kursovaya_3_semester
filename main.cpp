@@ -12,7 +12,7 @@ int main(){
     test_contact = contact_book.createContactByInput();
     contact_book.addContact(test_contact);
 
-    test_contact.showContact();
+    test_contact.show();
 
     return 0;
 }

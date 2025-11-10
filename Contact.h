@@ -15,8 +15,8 @@ class Contact {
     list<string> list_of_phone_numbers;
 
     public:
-    Contact(string firstName = "", string secondName = "", string email = "", string phoneNumber = "");
-    Contact(string firstName, string secondName, string lastName, string birthDate, string address, string email, list<string> list_of_phone_numbers);
+    //Contact(string firstName = "", string secondName = "", string email = "", string phoneNumber = "");
+    Contact(string firstName = "", string secondName = "", string email = "", list<string> list_of_phone_numbers = {}, string lastName = "", string birthDate = "", string address = "");
     Contact(const Contact &c);
     ~Contact();
 
@@ -45,9 +45,9 @@ class Contact {
 
     
     string normalizePhoneNumber(const string& PhoneNumber);
+    string trim(const string& string) const;
     bool addPhoneNumber(const string& PhoneNumber);
 
-    void showContact();
+    void show();
 };
 
-string trim(const string& string);
