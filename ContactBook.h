@@ -15,6 +15,7 @@ class ContactBook {
 
     void categoryInput(string category, string& inputString, string status = "compulsory");
     Contact createContactByInput();
+    void showContacts();
     bool addContact(const Contact& contact);
     bool deleteContact();
     bool updateContact();

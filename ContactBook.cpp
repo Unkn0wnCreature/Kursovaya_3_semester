@@ -66,6 +66,14 @@ Contact ContactBook::createContactByInput(){
     return contact;
 }
 
+void ContactBook::showContacts(){
+    cout<<"\n-------LIST OF CONTACTS-------\n"<<endl;
+    for (Contact contact : contactBook){
+        contact.show();
+        cout<<endl;
+    }
+}
+
 bool ContactBook::addContact(const Contact& contact){
     contactBook.push_back(contact);
     return true;
