@@ -58,15 +58,11 @@ Contact ContactBook::createContactByInput(){
 
     categoryInput("phone number", phone_number, "keep empty to stop adding phone numbers");
     while (!phone_number.empty()){
-        while (!contact.isValidPhone(phone_number)){
-            categoryInput("phone number", phone_number);
-            if (phone_number.empty()){break;}
-            if (contact.isValidPhone(phone_number)){
-                if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка присвоения фамилии."<<endl;}
-                break;
-            }
-        }
+        while (!contact.isValidPhone(phone_number)){categoryInput("phone number", phone_number);}
+        if (!contact.addPhoneNumber(phone_number)){cout<<"Ошибка присвоения фамилии."<<endl;}
+        categoryInput("phone number", phone_number, "keep empty to stop adding phone numbers");
     }
+
     return contact;
 }
 

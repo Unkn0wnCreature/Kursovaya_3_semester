@@ -198,7 +198,13 @@ bool Contact::addPhoneNumber(const string& phoneNumber){
 
 void Contact::show(){
     cout<<"First name: " << firstName <<endl;
-    cout<<"Second name: " <<secondName <<endl;
+    cout<<"Second name: " << secondName <<endl;
     cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
-    
+    cout<<"Birth date:" << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
+    cout<<"Address:" << ((address.empty()) ? "Not stated":address) <<endl;
+    cout<<"Email: " << email <<endl;
+    cout<<"Phone numbers: "<<endl;
+    for (string phone_number : list_of_phone_numbers){
+        cout<<"\t"<< phone_number <<endl;
+    }
 }
