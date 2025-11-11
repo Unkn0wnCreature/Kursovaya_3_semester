@@ -42,11 +42,19 @@ class Contact {
     bool isValidDate(const string& date) const;
     bool isValidAddress(const string& address) const;
 
-    
     string normalizePhoneNumber(const string& PhoneNumber);
     string trim(const string& string) const;
     bool addPhoneNumber(const string& PhoneNumber);
 
     void show();
+
+    bool findByFirstName(const string& string_to_find);
+    bool findBySecondName(const string& string_to_find);
+    bool findByLastName(const string& string_to_find);
+    bool findByBirthDate(const string& string_to_find);
+    bool findByAddress(const string& string_to_find);
+    bool findByEmail(const string& string_to_find);
+    bool findByPhoneNumber(const string& string_to_find);
+    bool findByString(const string& string_to_find);
 };
 

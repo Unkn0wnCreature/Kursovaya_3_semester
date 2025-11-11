@@ -195,3 +195,42 @@ void Contact::show(){
         cout<<"\t"<< phone_number <<endl;
     }
 }
+
+bool Contact::findByFirstName(const string& string_to_find){
+    if (!string_to_find.empty()){return this->firstName.find(string_to_find);}
+    return false;
+}
+bool Contact::findBySecondName(const string& string_to_find){
+    if (!string_to_find.empty()){return this->secondName.find(string_to_find);}
+    return false;
+}
+bool Contact::findByLastName(const string& string_to_find){
+    if (!this->lastName.empty() && !string_to_find.empty()){return this->lastName.find(string_to_find);}
+    return false;
+}
+bool Contact::findByBirthDate(const string& string_to_find){
+    if (!this->birthDate.empty() && !string_to_find.empty()){return this->birthDate.find(string_to_find);}
+    return false;
+}
+bool Contact::findByAddress(const string& string_to_find){
+    if (!this->address.empty() && !string_to_find.empty()){return this->address.find(string_to_find);}
+    return false;
+}
+bool Contact::findByEmail(const string& string_to_find){
+    if (!string_to_find.empty()){return this->email.find(string_to_find);}
+    return false;
+}
+bool Contact::findByPhoneNumber(const string& string_to_find){
+    if (!string_to_find.empty()){
+        for (string phone_number : this->list_of_phone_numbers){
+            if (phone_number.find(string_to_find)){return true;}
+        }
+    }
+    return false;
+}
+
+bool Contact::findByString(const string& string_to_find){
+    return (findByFirstName(string_to_find) || findBySecondName(string_to_find) ||
+        findByLastName(string_to_find) || findByBirthDate(string_to_find) || findByAddress(string_to_find) ||
+            findByEmail(string_to_find) || findByPhoneNumber(string_to_find));
+}

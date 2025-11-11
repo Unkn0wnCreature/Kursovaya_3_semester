@@ -78,3 +78,24 @@ bool ContactBook::addContact(const Contact& contact){
     contactBook.push_back(contact);
     return true;
 }
+
+auto ContactBook::searchContact(){
+    string string_to_find;
+
+    categoryInput("string for searching", string_to_find, "enter as much as you can, to search better");
+    for (auto iter = contactBook.begin(); iter != contactBook.end(); iter++){
+        if ((*iter).findByString(string_to_find)){return iter;}
+    }
+    return contactBook.end();
+}
+
+void ContactBook::deleteContact(list<Contact>::iterator iter){
+    this->contactBook.erase(iter);
+}
+
+void ContactBook::updateContact(list<Contact>::iterator iter){
+    Contact temporary_contact = createContactByInput();
+    
+    deleteContact(iter);
+    contactBook.insert(--iter, temporary_contact);
+}
