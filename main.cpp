@@ -7,12 +7,13 @@ using namespace std;
 
 int main(){
     ContactBook contact_book;
-    Contact test_contact;
+    Contact test_contact("tim", "dvor", "timicoboy@gmail.com", {"+79184642985"}), tc1("van", "dvor", "ivankrd@gmail.ru", {"+79184664985"});
 
-    test_contact = contact_book.createContactByInput();
+    //test_contact = contact_book.createContactByInput();
     contact_book.addContact(test_contact);
+    contact_book.addContact(tc1);
 
-    test_contact.show();
+    (*contact_book.searchContact()).show();
 
     return 0;
 }
