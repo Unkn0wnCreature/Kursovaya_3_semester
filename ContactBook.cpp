@@ -79,6 +79,7 @@ bool ContactBook::addContact(const Contact& contact){
     return true;
 }
 
+/*
 auto ContactBook::searchContact(){
     string string_to_find;
 
@@ -86,6 +87,99 @@ auto ContactBook::searchContact(){
     for (auto iter = contactBook.begin(); iter != contactBook.end(); iter++){
         if ((*iter).findByString(string_to_find)){return iter;}
     }
+    return contactBook.end();
+}
+*/
+
+auto ContactBook::searchContact(){
+    list<Contact> result = contactBook;
+    char status = 'y';
+    string string_to_find;
+    int criteria;
+
+    do
+    {
+        cout<<"Choose criteria to search (1-FIRST NAME, 2 - ):"<<endl;
+        cin>>criteria;
+    } while (criteria > 0 && criteria < 9);
+
+    do{
+        switch (criteria){
+            case 1:
+                categoryInput("first name", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByFirstName(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+
+            case 2:
+                categoryInput("second name", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findBySecondName(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+
+            case 3:
+                categoryInput("last name", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByLastName(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+            
+            case 4:
+                categoryInput("birth date", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByBirthDate(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+            
+            case 5:
+                categoryInput("address", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByAddress(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+            
+            case 6:
+                categoryInput("email", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByEmail(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+            
+            case 7:
+                categoryInput("phone number", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByPhoneNumber(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+            
+            default:
+                categoryInput("second name", string_to_find);
+                for (auto iter = result.begin(); iter != result.end(); iter++){
+                    if (!(*iter).findByString(string_to_find)){result.erase(iter);}
+                }
+                cout<<"Want to continue searching? (y/n)"<<endl;
+                cin>>status;
+                break;
+        }
+    } while (status == 'y' || status == 'Y');
+
+    if (result.size() != 0){return result.begin();}
     return contactBook.end();
 }
 
