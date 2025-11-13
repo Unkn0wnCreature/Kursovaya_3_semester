@@ -196,7 +196,7 @@ void Contact::show(){
     }
 }
 
-Contact& Contact::operator==(const Contact& other){
+Contact& Contact::operator=(const Contact& other){
     this->firstName = other.firstName;
     this->secondName = other.secondName;
     this->lastName = other.lastName;
@@ -206,6 +206,16 @@ Contact& Contact::operator==(const Contact& other){
     this->list_of_phone_numbers = other.list_of_phone_numbers;
 
     return *this;
+}
+
+bool Contact::operator==(const Contact& other) const {
+    return (firstName == other.firstName &&
+            secondName == other.secondName &&
+            lastName == other.lastName &&
+            birthDate == other.birthDate &&
+            address == other.address &&
+            email == other.email &&
+            list_of_phone_numbers == other.list_of_phone_numbers);
 }
 
 bool Contact::findByFirstName(const string& string_to_find){

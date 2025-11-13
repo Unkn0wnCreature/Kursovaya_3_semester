@@ -154,17 +154,37 @@ void ContactBook::deleteContact(){
         cin>>delete_all_status;
         cin.ignore();
     if (delete_all_status == 'y' || delete_all_status == 'Y'){
-        for (auto iter = list_to_delete.begin(); iter != list_to_delete.end(); iter++){
-            contactBook.erase(iter);
+        for (Contact& contact_to_delete : list_to_delete) {
+            for (auto it = contactBook.begin(); it != contactBook.end(); ) {
+                if (*it == contact_to_delete) {
+                    it = contactBook.erase(it);
+                    cout << "Contact deleted." << endl;
+                    break;
+                } else {
+                    ++it;
+                }
+            }
         }
     }else {
-        for (auto iter = list_to_delete.begin(); iter != list_to_delete.end(); iter++){
-            (*iter).show();
-            cout<<"\nWant to delete? (y/n)"<<endl;
-            cin>>status;
+        for (Contact& contact_to_delete : list_to_delete) {
+            contact_to_delete.show();
+            
+            char status;
+            cout << "\nWant to delete this contact? (y/n)" << endl;
+            cin >> status;
             cin.ignore();
+            
             if (status == 'y' || status == 'Y'){
-                contactBook.erase(iter);
+                // Находим и удаляем конкретный контакт
+                for (auto it = contactBook.begin(); it != contactBook.end(); ) {
+                    if (*it == contact_to_delete) {
+                        it = contactBook.erase(it);
+                        cout << "Contact deleted." << endl;
+                        break;
+                    } else {
+                        ++it;
+                    }
+                }
             }
         }
     }
