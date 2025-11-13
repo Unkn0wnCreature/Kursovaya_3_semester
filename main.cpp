@@ -13,7 +13,9 @@ int main(){
     contact_book.addContact(test_contact);
     contact_book.addContact(tc1);
 
-    (*contact_book.searchContact()).show();
+    list<Contact> res = contact_book.searchContact();
 
+    for (Contact n : res){n.show();}
+    contact_book.showContacts();
     return 0;
 }

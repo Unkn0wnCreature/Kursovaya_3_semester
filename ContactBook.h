@@ -19,7 +19,7 @@ class ContactBook {
     Contact createContactByInput();
     void showContacts();
     bool addContact(const Contact& contact);
-    auto searchContact();
-    void deleteContact(list<Contact>::iterator iter);
+    list<Contact> searchContact();
+    void deleteContact();
     void updateContact(list<Contact>::iterator iter);
 };

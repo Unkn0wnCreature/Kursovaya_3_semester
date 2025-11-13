@@ -91,93 +91,87 @@ auto ContactBook::searchContact(){
 }
 */
 
-auto ContactBook::searchContact(){
-    list<Contact> result = contactBook;
+list<Contact> ContactBook::searchContact(){
+    list<Contact> result;
+    string find_parameters[8];
+    string parametres[7] = {"first name", "second name", "last name", "birth date", "address", "email", "phone number"};
     char status;
-    string string_to_find;
-    int criteria;
-
-    do{
-        do
-        {
-            cout<<"Choose criteria to search (1-FIRST NAME, 2 - ):"<<endl;
-            cin>>criteria;
-        } while (criteria < 1 && criteria > 8);
-
-        switch (criteria){
-            case 1:
-                categoryInput("first name", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByFirstName(string_to_find)){result.erase(iter);}
-                }
-                break;
-
-            case 2:
-                categoryInput("second name", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findBySecondName(string_to_find)){result.erase(iter);}
-                }
-                break;
-
-            case 3:
-                categoryInput("last name", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByLastName(string_to_find)){result.erase(iter);}
-                }
-                break;
-            
-            case 4:
-                categoryInput("birth date", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByBirthDate(string_to_find)){result.erase(iter);}
-                }
-                break;
-            
-            case 5:
-                categoryInput("address", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByAddress(string_to_find)){result.erase(iter);}
-                }
-                break;
-            
-            case 6:
-                categoryInput("email", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByEmail(string_to_find)){result.erase(iter);}
-                }
-                break;
-            
-            case 7:
-                categoryInput("phone number", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByPhoneNumber(string_to_find)){result.erase(iter);}
-                }
-                break;
-            
-            case 8:
-                categoryInput("second name", string_to_find);
-                for (auto iter = result.begin(); iter != result.end(); iter++){
-                    if (!(*iter).findByString(string_to_find)){result.erase(iter);}
-                }
-                break;
+    
+    cout<<"Do you want find through all fields? (y/n)"<<endl;
+    cin>>status;
+    cin.ignore();
+    if (status == 'y' || status == 'Y'){
+        categoryInput("string to find", find_parameters[7]);
+        for (Contact& contact : contactBook){
+            if ((contact).findByString(find_parameters[7])){
+                result.push_back(contact);
+            }
         }
-        while (!result.empty()){
-            cout<<"Want to continue searching? (y/n)"<<endl;
-            cin>>status;
+    } else {
+        for (int i = 0; i < 7; i++){
+            categoryInput(parametres[i], find_parameters[i], "optional");
         }
-    } while (status == 'y' || status == 'Y');
 
-    if (!result.empty()){return result.begin();}
-    return contactBook.end();
+        for (Contact& contact : contactBook){
+            bool matches = true;
+            // Проверяем каждое поле только если указан поисковый запрос
+            if (!find_parameters[0].empty() && !contact.findByFirstName(find_parameters[0])) {
+                matches = false;
+            }
+            if (!find_parameters[1].empty() && !contact.findBySecondName(find_parameters[1])) {
+                matches = false;
+            }
+            if (!find_parameters[2].empty() && !contact.findByLastName(find_parameters[2])) {
+                matches = false;
+            }
+            if (!find_parameters[3].empty() && !contact.findByBirthDate(find_parameters[3])) {
+                matches = false;
+            }
+            if (!find_parameters[4].empty() && !contact.findByAddress(find_parameters[4])) {
+                matches = false;
+            }
+            if (!find_parameters[5].empty() && !contact.findByEmail(find_parameters[5])) {
+                matches = false;
+            }
+            if (!find_parameters[6].empty() && !contact.findByPhoneNumber(find_parameters[6])) {
+                matches = false;
+            }
+            
+            if (matches) {
+                result.push_back(contact);
+            }
+        }
+    }
+    cout<<"Found "<< result.size() <<" contact(s).\n"<<endl;
+    return result;
 }
 
-void ContactBook::deleteContact(list<Contact>::iterator iter){
-    this->contactBook.erase(iter);
+void ContactBook::deleteContact(){
+    list<Contact> list_to_delete = searchContact();
+    char delete_all_status, status;
+
+    cout<<"\nWant to delete all? (y/n)"<<endl;
+        cin>>delete_all_status;
+        cin.ignore();
+    if (delete_all_status == 'y' || delete_all_status == 'Y'){
+        for (auto iter = list_to_delete.begin(); iter != list_to_delete.end(); iter++){
+            contactBook.erase(iter);
+        }
+    }else {
+        for (auto iter = list_to_delete.begin(); iter != list_to_delete.end(); iter++){
+            (*iter).show();
+            cout<<"\nWant to delete? (y/n)"<<endl;
+            cin>>status;
+            cin.ignore();
+            if (status == 'y' || status == 'Y'){
+                contactBook.erase(iter);
+            }
+        }
+    }
 }
 
 void ContactBook::updateContact(list<Contact>::iterator iter){
     Contact temporary_contact = createContactByInput();
     
-    deleteContact(iter);
-    contactBook.insert(--iter, temporary_contact);
+    (*iter) = Contact(temporary_contact);
 }

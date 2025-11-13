@@ -50,6 +50,8 @@ class Contact {
 
     void show();
 
+    Contact& operator==(const Contact& other);
+
     bool findByFirstName(const string& string_to_find);
     bool findBySecondName(const string& string_to_find);
     bool findByLastName(const string& string_to_find);
