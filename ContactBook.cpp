@@ -192,22 +192,128 @@ void ContactBook::deleteContact(){
 
 void ContactBook::updateContact(){
     list<Contact> list_to_update = searchContact();
-    char status;
+    char global_status, status;
 
-    for (auto contact_to_update = contactBook.begin(); contact_to_update != contactBook.end(); contact_to_update++){
-        for (Contact found_contact : list_to_update){
-            if (*contact_to_update == found_contact){
-                (*contact_to_update).show();
-                cout<<"\nWant to update contact? (y/n)"<<endl;
-                cin>>status;
-                cin.ignore();
-                if (status == 'y' || status == 'Y'){
-                    Contact temporary_contact = createContactByInput();
-                    *contact_to_update = temporary_contact;
+    cout<<"Want to update contacts? (y/n)"<<endl;
+    cin>>global_status;
+    cin.ignore();
+
+    if (global_status == 'y' || global_status == 'Y'){
+        for (auto contact_to_update = contactBook.begin(); contact_to_update != contactBook.end(); contact_to_update++){
+            for (Contact found_contact : list_to_update){
+                if (*contact_to_update == found_contact){
+                    (*contact_to_update).show();
+                    cout<<"\nWant to update contact? (y/n)"<<endl;
+                    cin>>status;
+                    cin.ignore();
+                    if (status == 'y' || status == 'Y'){
+                        Contact temporary_contact = createContactByInput();
+                        *contact_to_update = temporary_contact;
+                    }
                 }
             }
         }
+    } 
+}
+
+bool ContactBook::comapareByFirstName(const Contact& contact1, const Contact& contact2){
+    return contact1.get_firstName() < contact2.get_firstName();
+}
+
+bool ContactBook::comapareBySecondName(const Contact& contact1, const Contact& contact2){
+    return contact1.get_secondName() < contact2.get_secondName();
+}
+
+bool ContactBook::comapareByLastName(const Contact& contact1, const Contact& contact2){
+    string lastName1 = (contact1.get_lastName().empty() ? "zzzzzzzzzz" : contact1.get_lastName());
+    string lastName2 = (contact2.get_lastName().empty() ? "zzzzzzzzzz" : contact2.get_lastName());
+    return lastName1 < lastName2;
+}
+
+bool ContactBook::comapareByBirthDate(const Contact& contact1, const Contact& contact2){
+    string date1 = (contact1.get_birthDate().empty() ? "31-12-9999" : contact1.get_birthDate());
+    string date2 = (contact2.get_birthDate().empty() ? "31-12-9999" : contact2.get_birthDate());
+    return date1 < date2;
+}
+
+bool ContactBook::comapareByAddress(const Contact& contact1, const Contact& contact2){
+    string address1 = (contact1.get_address().empty() ? "zzzzzzzzzz" : contact1.get_address());
+    string address2 = (contact2.get_address().empty() ? "zzzzzzzzzz" : contact2.get_address());
+    return address1 < address2;
+}
+
+bool ContactBook::comapareByEmail(const Contact& contact1, const Contact& contact2){
+    return contact1.get_email() < contact2.get_email();
+}
+
+void ContactBook::showSortMenu(){
+    cout<<"------SORT MENU------"<<endl;
+    cout << "1. Sort by First Name (A-Z)" << endl;
+    cout << "2. Sort by First Name (Z-A)" << endl;
+    cout << "3. Sort by Second Name (A-Z)" << endl;
+    cout << "4. Sort by Second Name (Z-A)" << endl;
+    cout << "5. Sort by Last Name (A-Z)" << endl;
+    cout << "6. Sort by Last Name (Z-A)" << endl;
+    cout << "7. Sort by Birth Date (oldest first)" << endl;
+    cout << "8. Sort by Birth Date (newest first)" << endl;
+    cout << "9. Sort by Address (A-Z)" << endl;
+    cout << "10. Sort by Address (Z-A)" << endl;
+    cout << "11. Sort by Email (A-Z)" << endl;
+    cout << "12. Sort by Email (Z-A)" << endl;
+    cout << "13. Cancel" << endl;
+    cout << "Choose sorting option: ";
+}
+
+void ContactBook::sortContacts(){
+    int criteria;
+    
+    showSortMenu();
+
+    cin>>criteria;
+    cin.ignore();
+
+    switch (criteria)
+    {
+    case 1:
+        contactBook.sort(comapareByFirstName);
+        break;
+    case 2:
+        contactBook.sort(comapareByFirstName);
+        break;
+    case 3:
+        contactBook.sort(comapareBySecondName);
+        break;
+    case 4:
+        contactBook.sort(comapareBySecondName);
+        break;
+    case 5:
+        contactBook.sort(comapareByLastName);
+        break;
+    case 6:
+        contactBook.sort(comapareByLastName);
+        break;
+    case 7:
+        contactBook.sort(comapareByBirthDate);
+        break;
+    case 8:
+        contactBook.sort(comapareByBirthDate);
+        break;
+    case 9:
+        contactBook.sort(comapareByAddress);
+        break;
+    case 10:
+        contactBook.sort(comapareByAddress);
+        break;
+    case 11:
+        contactBook.sort(comapareByEmail);
+        break;
+    case 12:
+        contactBook.sort(comapareByEmail);
+        break;
+    case 13:
+        break;
+    default:
+        cout<<"Wrong sorting criteria!!"<<endl;
+        return;
     }
-    
-    
 }

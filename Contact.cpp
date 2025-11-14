@@ -80,12 +80,13 @@ bool Contact::set_list_of_phones(list<string> list_of_phones){
     return true;
 }
 
-string Contact::get_firstName(){return firstName;}
-string Contact::get_secondName(){return secondName;};
-string Contact::get_lastName(){return lastName;};
-string Contact::get_address(){return address;};
-string Contact::get_email(){return email;};
-list<string> Contact::get_list_of_phones(){return list_of_phone_numbers;};
+string Contact::get_firstName() const {return firstName;}
+string Contact::get_secondName() const {return secondName;}
+string Contact::get_lastName() const {return lastName;}
+string Contact::get_birthDate() const {return birthDate;}
+string Contact::get_address() const {return address;}
+string Contact::get_email() const {return email;}
+list<string> Contact::get_list_of_phones() const {return list_of_phone_numbers;}
 
 bool Contact::isValidName(const string& name) const {
     if (name.empty()) return true; // Отчество может быть пустым

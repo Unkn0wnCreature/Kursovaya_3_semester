@@ -29,12 +29,13 @@ class Contact {
     bool set_email(string& email);
     bool set_list_of_phones(list<string> list_of_phones);
 
-    string get_firstName();
-    string get_secondName();
-    string get_lastName();
-    string get_address();
-    string get_email();
-    list<string> get_list_of_phones();
+    string get_firstName() const;
+    string get_secondName() const;
+    string get_lastName() const;
+    string get_birthDate() const;
+    string get_address() const;
+    string get_email() const;
+    list<string> get_list_of_phones() const;
 
     //Contact get_contact();
 

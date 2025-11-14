@@ -22,4 +22,14 @@ class ContactBook {
     list<Contact> searchContact();
     void deleteContact();
     void updateContact();
+
+    bool comapareByFirstName(const Contact& contact1, const Contact& contact2);
+    bool comapareBySecondName(const Contact& contact1, const Contact& contact2);
+    bool comapareByLastName(const Contact& contact1, const Contact& contact2);
+    bool comapareByBirthDate(const Contact& contact1, const Contact& contact2);
+    bool comapareByAddress(const Contact& contact1, const Contact& contact2);
+    bool comapareByEmail(const Contact& contact1, const Contact& contact2);
+
+    void showSortMenu();
+    void sortContacts();
 };
