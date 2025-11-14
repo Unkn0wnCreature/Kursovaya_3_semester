@@ -13,7 +13,8 @@ int main(){
     contact_book.addContact(test_contact);
     contact_book.addContact(tc1);
 
-    contact_book.deleteContact();
+    //contact_book.deleteContact();
+    contact_book.updateContact();
     contact_book.showContacts();
     return 0;
 }

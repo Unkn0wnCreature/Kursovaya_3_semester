@@ -190,8 +190,24 @@ void ContactBook::deleteContact(){
     }
 }
 
-void ContactBook::updateContact(list<Contact>::iterator iter){
-    Contact temporary_contact = createContactByInput();
+void ContactBook::updateContact(){
+    list<Contact> list_to_update = searchContact();
+    char status;
+
+    for (auto contact_to_update = contactBook.begin(); contact_to_update != contactBook.end(); contact_to_update++){
+        for (Contact found_contact : list_to_update){
+            if (*contact_to_update == found_contact){
+                (*contact_to_update).show();
+                cout<<"\nWant to update contact? (y/n)"<<endl;
+                cin>>status;
+                cin.ignore();
+                if (status == 'y' || status == 'Y'){
+                    Contact temporary_contact = createContactByInput();
+                    *contact_to_update = temporary_contact;
+                }
+            }
+        }
+    }
     
-    (*iter) = Contact(temporary_contact);
+    
 }

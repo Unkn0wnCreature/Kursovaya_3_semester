@@ -21,5 +21,5 @@ class ContactBook {
     bool addContact(const Contact& contact);
     list<Contact> searchContact();
     void deleteContact();
-    void updateContact(list<Contact>::iterator iter);
+    void updateContact();
 };
