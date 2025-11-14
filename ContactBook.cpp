@@ -216,33 +216,33 @@ void ContactBook::updateContact(){
     } 
 }
 
-bool ContactBook::comapareByFirstName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareByFirstName(const Contact& contact1, const Contact& contact2){
     return contact1.get_firstName() < contact2.get_firstName();
 }
 
-bool ContactBook::comapareBySecondName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareBySecondName(const Contact& contact1, const Contact& contact2){
     return contact1.get_secondName() < contact2.get_secondName();
 }
 
-bool ContactBook::comapareByLastName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareByLastName(const Contact& contact1, const Contact& contact2){
     string lastName1 = (contact1.get_lastName().empty() ? "zzzzzzzzzz" : contact1.get_lastName());
     string lastName2 = (contact2.get_lastName().empty() ? "zzzzzzzzzz" : contact2.get_lastName());
     return lastName1 < lastName2;
 }
 
-bool ContactBook::comapareByBirthDate(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareByBirthDate(const Contact& contact1, const Contact& contact2){
     string date1 = (contact1.get_birthDate().empty() ? "31-12-9999" : contact1.get_birthDate());
     string date2 = (contact2.get_birthDate().empty() ? "31-12-9999" : contact2.get_birthDate());
     return date1 < date2;
 }
 
-bool ContactBook::comapareByAddress(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareByAddress(const Contact& contact1, const Contact& contact2){
     string address1 = (contact1.get_address().empty() ? "zzzzzzzzzz" : contact1.get_address());
     string address2 = (contact2.get_address().empty() ? "zzzzzzzzzz" : contact2.get_address());
     return address1 < address2;
 }
 
-bool ContactBook::comapareByEmail(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareByEmail(const Contact& contact1, const Contact& contact2){
     return contact1.get_email() < contact2.get_email();
 }
 
@@ -275,40 +275,40 @@ void ContactBook::sortContacts(){
     switch (criteria)
     {
     case 1:
-        contactBook.sort(comapareByFirstName);
+        contactBook.sort(compareByFirstName);
         break;
     case 2:
-        contactBook.sort(comapareByFirstName);
+        contactBook.sort(compareByFirstName);
         break;
     case 3:
-        contactBook.sort(comapareBySecondName);
+        contactBook.sort(compareBySecondName);
         break;
     case 4:
-        contactBook.sort(comapareBySecondName);
+        contactBook.sort(compareBySecondName);
         break;
     case 5:
-        contactBook.sort(comapareByLastName);
+        contactBook.sort(compareByLastName);
         break;
     case 6:
-        contactBook.sort(comapareByLastName);
+        contactBook.sort(compareByLastName);
         break;
     case 7:
-        contactBook.sort(comapareByBirthDate);
+        contactBook.sort(compareByBirthDate);
         break;
     case 8:
-        contactBook.sort(comapareByBirthDate);
+        contactBook.sort(compareByBirthDate);
         break;
     case 9:
-        contactBook.sort(comapareByAddress);
+        contactBook.sort(compareByAddress);
         break;
     case 10:
-        contactBook.sort(comapareByAddress);
+        contactBook.sort(compareByAddress);
         break;
     case 11:
-        contactBook.sort(comapareByEmail);
+        contactBook.sort(compareByEmail);
         break;
     case 12:
-        contactBook.sort(comapareByEmail);
+        contactBook.sort(compareByEmail);
         break;
     case 13:
         break;
