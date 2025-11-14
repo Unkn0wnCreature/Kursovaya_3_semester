@@ -29,6 +29,12 @@ class ContactBook {
     static bool compareByBirthDate(const Contact& contact1, const Contact& contact2);
     static bool compareByAddress(const Contact& contact1, const Contact& contact2);
     static bool compareByEmail(const Contact& contact1, const Contact& contact2);
+    static bool compareByFirstNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareBySecondNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareByLastNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareByBirthDateDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareByAddressDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareByEmailDecr(const Contact& contact1, const Contact& contact2);
 
     void showSortMenu();
     void sortContacts();

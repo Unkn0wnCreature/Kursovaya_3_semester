@@ -3,4 +3,10 @@
 #include "FileStorage.h"
 
 class ConsoleUI {
+    public:
+    ConsoleUI();
+    ~ConsoleUI();
+
+    void show();
+    void run(ContactBook& contactBook);
 };

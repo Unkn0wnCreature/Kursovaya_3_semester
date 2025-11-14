@@ -1,8 +1,10 @@
 #include <iostream>
 #include "ContactBook.h"
 #include "Contact.h"
+#include "ConsoleUI.h"
 #include "ContactBook.cpp"
 #include "Contact.cpp"
+#include "ConsoleUI.cpp"
 using namespace std;
 
 int main(){
@@ -12,9 +14,10 @@ int main(){
     //test_contact = contact_book.createContactByInput();
     contact_book.addContact(test_contact);
     contact_book.addContact(tc1);
+    
+    ConsoleUI consoleUI;
 
-    //contact_book.deleteContact();
-    contact_book.sortContacts();
-    contact_book.showContacts();
+    consoleUI.run(contact_book);
+    
     return 0;
 }

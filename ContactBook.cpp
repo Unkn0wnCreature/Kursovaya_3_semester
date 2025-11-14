@@ -246,8 +246,38 @@ bool ContactBook::compareByEmail(const Contact& contact1, const Contact& contact
     return contact1.get_email() < contact2.get_email();
 }
 
+bool ContactBook::compareByFirstNameDecr(const Contact& contact1, const Contact& contact2){
+    return contact1.get_firstName() > contact2.get_firstName();
+}
+
+bool ContactBook::compareBySecondNameDecr(const Contact& contact1, const Contact& contact2){
+    return contact1.get_secondName() > contact2.get_secondName();
+}
+
+bool ContactBook::compareByLastNameDecr(const Contact& contact1, const Contact& contact2){
+    string lastName1 = (contact1.get_lastName().empty() ? "zzzzzzzzzz" : contact1.get_lastName());
+    string lastName2 = (contact2.get_lastName().empty() ? "zzzzzzzzzz" : contact2.get_lastName());
+    return lastName1 > lastName2;
+}
+
+bool ContactBook::compareByBirthDateDecr(const Contact& contact1, const Contact& contact2){
+    string date1 = (contact1.get_birthDate().empty() ? "31-12-9999" : contact1.get_birthDate());
+    string date2 = (contact2.get_birthDate().empty() ? "31-12-9999" : contact2.get_birthDate());
+    return date1 > date2;
+}
+
+bool ContactBook::compareByAddressDecr(const Contact& contact1, const Contact& contact2){
+    string address1 = (contact1.get_address().empty() ? "zzzzzzzzzz" : contact1.get_address());
+    string address2 = (contact2.get_address().empty() ? "zzzzzzzzzz" : contact2.get_address());
+    return address1 > address2;
+}
+
+bool ContactBook::compareByEmailDecr(const Contact& contact1, const Contact& contact2){
+    return contact1.get_email() > contact2.get_email();
+}
+
 void ContactBook::showSortMenu(){
-    cout<<"------SORT MENU------"<<endl;
+    cout<<"\n------SORT MENU------\n"<<endl;
     cout << "1. Sort by First Name (A-Z)" << endl;
     cout << "2. Sort by First Name (Z-A)" << endl;
     cout << "3. Sort by Second Name (A-Z)" << endl;
@@ -278,7 +308,7 @@ void ContactBook::sortContacts(){
         contactBook.sort(compareByFirstName);
         break;
     case 2:
-        contactBook.sort(compareByFirstName);
+        contactBook.sort(compareByFirstNameDecr);
         break;
     case 3:
         contactBook.sort(compareBySecondName);
@@ -290,30 +320,30 @@ void ContactBook::sortContacts(){
         contactBook.sort(compareByLastName);
         break;
     case 6:
-        contactBook.sort(compareByLastName);
+        contactBook.sort(compareByLastNameDecr);
         break;
     case 7:
         contactBook.sort(compareByBirthDate);
         break;
     case 8:
-        contactBook.sort(compareByBirthDate);
+        contactBook.sort(compareByBirthDateDecr);
         break;
     case 9:
         contactBook.sort(compareByAddress);
         break;
     case 10:
-        contactBook.sort(compareByAddress);
+        contactBook.sort(compareByAddressDecr);
         break;
     case 11:
         contactBook.sort(compareByEmail);
         break;
     case 12:
-        contactBook.sort(compareByEmail);
+        contactBook.sort(compareByEmailDecr);
         break;
     case 13:
         break;
     default:
-        cout<<"Wrong sorting criteria!!"<<endl;
+        cout<<"\nWrong sorting criteria!!\n"<<endl;
         return;
     }
 }
