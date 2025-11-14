@@ -5,6 +5,7 @@ ConsoleUI::ConsoleUI(){}
 ConsoleUI::~ConsoleUI(){}
 
 void ConsoleUI::show(){
+    cout<<"\n------M E N U------\n"<<endl;
     cout<<"1. Show contact book."<<endl;
     cout<<"2. Add contact."<<endl;
     cout<<"3. Delete contacts."<<endl;

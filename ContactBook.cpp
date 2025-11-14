@@ -67,10 +67,10 @@ Contact ContactBook::createContactByInput(){
 }
 
 void ContactBook::showContacts(){
-    cout<<"\n-------LIST OF CONTACTS-------\n"<<endl;
+    cout<<"\n-------L I S T    O F   C O N T A C T S-------\n"<<endl;
     for (Contact contact : contactBook){
         contact.show();
-        cout<<endl;
+        cout<<"++++++++++++++++++++++++++++++++++++++++++"<<endl;
     }
 }
 
@@ -78,18 +78,6 @@ bool ContactBook::addContact(const Contact& contact){
     contactBook.push_back(contact);
     return true;
 }
-
-/*
-auto ContactBook::searchContact(){
-    string string_to_find;
-
-    categoryInput("string for searching", string_to_find, "enter as much as you can, to search better");
-    for (auto iter = contactBook.begin(); iter != contactBook.end(); iter++){
-        if ((*iter).findByString(string_to_find)){return iter;}
-    }
-    return contactBook.end();
-}
-*/
 
 list<Contact> ContactBook::searchContact(){
     list<Contact> result;
