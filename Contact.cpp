@@ -107,7 +107,7 @@ bool Contact::isValidPhone(const std::string& phoneNumber) const {
                      [](char c) { return !isdigit(c) && c != '+'; }), cleanPhone.end());
     
     // Проверяем различные форматы номеров
-    regex pattern("^(\\+7|8)?[0-9]{10}$");
+    regex pattern("^(\\+7|8)[\\s(-]*(\\d{3})[\\s)-]*(\\d{3})[\\s-]*(\\d{2})[\\s-]*(\\d{2})$");
     return regex_match(trim(cleanPhone), pattern);
 }
 
@@ -188,8 +188,8 @@ void Contact::show(){
     cout<<"First name: " << firstName <<endl;
     cout<<"Second name: " << secondName <<endl;
     cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
-    cout<<"Birth date:" << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
-    cout<<"Address:" << ((address.empty()) ? "Not stated":address) <<endl;
+    cout<<"Birth date: " << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
+    cout<<"Address: " << ((address.empty()) ? "Not stated":address) <<endl;
     cout<<"Email: " << email <<endl;
     cout<<"Phone numbers: "<<endl;
     for (string phone_number : list_of_phone_numbers){

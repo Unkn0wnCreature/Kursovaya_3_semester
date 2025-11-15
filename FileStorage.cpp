@@ -77,7 +77,7 @@ list<Contact> FileStorage::loadFromFile(const list<Contact>& contactBook){
             contacts.push_back(contact);
         }
         file.close();
-        cout<<"Succesfully loaded "<< contacts.size() <<" contacts from "<< filename <<endl;
+        cout<<"\nSuccesfully loaded "<< contacts.size() <<" contacts from "<< filename <<endl;
 
     }
     return contacts;

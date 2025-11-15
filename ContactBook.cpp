@@ -87,11 +87,11 @@ list<Contact> ContactBook::searchContact(){
     string parametres[7] = {"first name", "second name", "last name", "birth date", "address", "email", "phone number"};
     char status;
     
-    cout<<"Do you want find through all fields? (y/n)"<<endl;
+    cout<<"\nDo you want find through all fields? (y/n)"<<endl;
     cin>>status;
     cin.ignore();
     if (status == 'y' || status == 'Y'){
-        categoryInput("string to find", find_parameters[7]);
+        categoryInput("string to find", find_parameters[7], "optional");
         for (Contact& contact : contactBook){
             if ((contact).findByString(find_parameters[7])){
                 result.push_back(contact);
