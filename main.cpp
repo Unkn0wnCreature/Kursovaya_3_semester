@@ -19,7 +19,7 @@ int main(){
 }
 
 void showMenu(){
-    cout<<"\nM E N U\n"<<endl;
+    cout<<"\nMENU\n"<<endl;
     cout<<"1. Show all contacts."<<endl;
     cout<<"2. Add contact."<<endl;
     cout<<"3. Update contacts."<<endl;

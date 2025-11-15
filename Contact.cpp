@@ -25,6 +25,27 @@ Contact::Contact(const Contact& c){
 
 Contact::~Contact(){}
 
+void Contact::show(){
+    cout<<"First name: " << firstName <<endl;
+    cout<<"Second name: " << secondName <<endl;
+    cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
+    cout<<"Birth date: " << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
+    cout<<"Address: " << ((address.empty()) ? "Not stated":address) <<endl;
+    cout<<"Email: " << email <<endl;
+    cout<<"Phone numbers: "<<endl;
+    for (string phone_number : list_of_phone_numbers){
+        cout<<"\t"<< phone_number <<endl;
+    }
+}
+
+string Contact::get_firstName() const {return firstName;}
+string Contact::get_secondName() const {return secondName;}
+string Contact::get_lastName() const {return lastName;}
+string Contact::get_birthDate() const {return birthDate;}
+string Contact::get_address() const {return address;}
+string Contact::get_email() const {return email;}
+list<string> Contact::get_list_of_phones() const {return list_of_phone_numbers;}
+
 bool Contact::set_firstName(string& firstName){
     string trimmed = trim_string(firstName);
     if (!isValidName(trimmed)){return false;}
@@ -79,14 +100,6 @@ bool Contact::set_list_of_phones(list<string> list_of_phones){
 
     return true;
 }
-
-string Contact::get_firstName() const {return firstName;}
-string Contact::get_secondName() const {return secondName;}
-string Contact::get_lastName() const {return lastName;}
-string Contact::get_birthDate() const {return birthDate;}
-string Contact::get_address() const {return address;}
-string Contact::get_email() const {return email;}
-list<string> Contact::get_list_of_phones() const {return list_of_phone_numbers;}
 
 bool Contact::isValidName(const string& name) const {
     if (name.empty()) return true;
@@ -179,21 +192,8 @@ string Contact::trim_string(const string& string) const{
 
 bool Contact::addPhoneNumber(const string& phoneNumber){
     if (!isValidPhone(phoneNumber)){return false;}
-    this->list_of_phone_numbers.push_back(phoneNumber);
+    list_of_phone_numbers.push_back(phoneNumber);
     return true;
-}
-
-void Contact::show(){
-    cout<<"First name: " << firstName <<endl;
-    cout<<"Second name: " << secondName <<endl;
-    cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
-    cout<<"Birth date: " << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
-    cout<<"Address: " << ((address.empty()) ? "Not stated":address) <<endl;
-    cout<<"Email: " << email <<endl;
-    cout<<"Phone numbers: "<<endl;
-    for (string phone_number : list_of_phone_numbers){
-        cout<<"\t"<< phone_number <<endl;
-    }
 }
 
 Contact& Contact::operator=(const Contact& other){
@@ -209,49 +209,45 @@ Contact& Contact::operator=(const Contact& other){
 }
 
 bool Contact::operator==(const Contact& other) const {
-    return (firstName == other.firstName &&
-            secondName == other.secondName &&
-            lastName == other.lastName &&
-            birthDate == other.birthDate &&
-            address == other.address &&
-            email == other.email &&
+    return (firstName == other.firstName && secondName == other.secondName && lastName == other.lastName &&
+            birthDate == other.birthDate && address == other.address && email == other.email &&
             list_of_phone_numbers == other.list_of_phone_numbers);
 }
 
-bool Contact::findByFirstName(const string& string_to_find){
+bool Contact::findFirstName(const string& string_to_find){
     if (string_to_find.empty()) return true;
     return this->firstName.find(string_to_find) != string::npos;
 }
 
-bool Contact::findBySecondName(const string& string_to_find){
+bool Contact::findSecondName(const string& string_to_find){
     if (string_to_find.empty()) return true;
     return this->secondName.find(string_to_find) != string::npos;
 }
 
-bool Contact::findByLastName(const string& string_to_find){
+bool Contact::findLastName(const string& string_to_find){
     if (string_to_find.empty()) return true;
     if (this->lastName.empty()) return false;
     return this->lastName.find(string_to_find) != string::npos;
 }
 
-bool Contact::findByBirthDate(const string& string_to_find){
+bool Contact::findBirthDate(const string& string_to_find){
     if (string_to_find.empty()) return true;
     if (this->birthDate.empty()) return false;
     return this->birthDate.find(string_to_find) != string::npos;
 }
 
-bool Contact::findByAddress(const string& string_to_find){
+bool Contact::findAddress(const string& string_to_find){
     if (string_to_find.empty()) return true;
     if (this->address.empty()) return false;
     return this->address.find(string_to_find) != string::npos;
 }
 
-bool Contact::findByEmail(const string& string_to_find){
+bool Contact::findEmail(const string& string_to_find){
     if (string_to_find.empty()) return true;
     return this->email.find(string_to_find) != string::npos;
 }
 
-bool Contact::findByPhoneNumber(const string& string_to_find){
+bool Contact::findPhoneNumber(const string& string_to_find){
     if (string_to_find.empty()) return true;
     for (const string& phone_number : this->list_of_phone_numbers){
         if (phone_number.find(string_to_find) != string::npos){
@@ -261,8 +257,8 @@ bool Contact::findByPhoneNumber(const string& string_to_find){
     return false;
 }
 
-bool Contact::findByString(const string& string_to_find){
-    return ((findByFirstName(string_to_find) || findBySecondName(string_to_find) ||
-        findByLastName(string_to_find) || findByBirthDate(string_to_find) || findByAddress(string_to_find) ||
-            findByEmail(string_to_find) || findByPhoneNumber(string_to_find)));
+bool Contact::findString(const string& string_to_find){
+    return ((findFirstName(string_to_find) || findSecondName(string_to_find) ||
+        findLastName(string_to_find) || findBirthDate(string_to_find) || findAddress(string_to_find) ||
+            findEmail(string_to_find) || findPhoneNumber(string_to_find)));
 }

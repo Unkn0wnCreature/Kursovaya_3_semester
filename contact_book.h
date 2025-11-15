@@ -29,18 +29,18 @@ class ContactBook {
     void showSortMenu();
     void sortContacts();
 
-    static bool compareByFirstName(const Contact& contact1, const Contact& contact2);
-    static bool compareBySecondName(const Contact& contact1, const Contact& contact2);
-    static bool compareByLastName(const Contact& contact1, const Contact& contact2);
-    static bool compareByBirthDate(const Contact& contact1, const Contact& contact2);
-    static bool compareByAddress(const Contact& contact1, const Contact& contact2);
-    static bool compareByEmail(const Contact& contact1, const Contact& contact2);
-    static bool compareByFirstNameDecr(const Contact& contact1, const Contact& contact2);
-    static bool compareBySecondNameDecr(const Contact& contact1, const Contact& contact2);
-    static bool compareByLastNameDecr(const Contact& contact1, const Contact& contact2);
-    static bool compareByBirthDateDecr(const Contact& contact1, const Contact& contact2);
-    static bool compareByAddressDecr(const Contact& contact1, const Contact& contact2);
-    static bool compareByEmailDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareFirstName(const Contact& contact1, const Contact& contact2);
+    static bool compareSecondName(const Contact& contact1, const Contact& contact2);
+    static bool compareLastName(const Contact& contact1, const Contact& contact2);
+    static bool compareBirthDate(const Contact& contact1, const Contact& contact2);
+    static bool compareAddress(const Contact& contact1, const Contact& contact2);
+    static bool compareEmail(const Contact& contact1, const Contact& contact2);
+    static bool compareFirstNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareSecondNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareLastNameDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareBirthDateDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareAddressDecr(const Contact& contact1, const Contact& contact2);
+    static bool compareEmailDecr(const Contact& contact1, const Contact& contact2);
 
     void saveContacts();
     void loadContacts();

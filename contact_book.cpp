@@ -69,10 +69,10 @@ Contact ContactBook::createContact(){
 }
 
 void ContactBook::showContacts(){
-    cout<<"\n-------L I S T    O F   C O N T A C T S-------\n"<<endl;
+    cout<<"\nLIST OF CONTACTS\n"<<endl;
     for (Contact contact : contactBook){
         contact.show();
-        cout<<"++++++++++++++++++++++++++++++++++++++++++"<<endl;
+        cout<<"@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@-@"<<endl;
     }
 }
 
@@ -81,59 +81,7 @@ bool ContactBook::addContact(const Contact& contact){
     return true;
 }
 
-list<Contact> ContactBook::searchContact(){
-    list<Contact> result;
-    string find_parameters[8];
-    string parametres[7] = {"first name", "second name", "last name", "birth date", "address", "email", "phone number"};
-    char status;
-    
-    cout<<"\nDo you want find through all fields? (y/n)"<<endl;
-    cin>>status;
-    cin.ignore();
-    if (status == 'y' || status == 'Y'){
-        categoryInput("string to find", find_parameters[7], "optional");
-        for (Contact& contact : contactBook){
-            if ((contact).findByString(find_parameters[7])){
-                result.push_back(contact);
-            }
-        }
-    } else {
-        for (int i = 0; i < 7; i++){
-            categoryInput(parametres[i], find_parameters[i], "optional");
-        }
 
-        for (Contact& contact : contactBook){
-            bool matches = true;
-            if (!find_parameters[0].empty() && !contact.findByFirstName(find_parameters[0])) {
-                matches = false;
-            }
-            if (!find_parameters[1].empty() && !contact.findBySecondName(find_parameters[1])) {
-                matches = false;
-            }
-            if (!find_parameters[2].empty() && !contact.findByLastName(find_parameters[2])) {
-                matches = false;
-            }
-            if (!find_parameters[3].empty() && !contact.findByBirthDate(find_parameters[3])) {
-                matches = false;
-            }
-            if (!find_parameters[4].empty() && !contact.findByAddress(find_parameters[4])) {
-                matches = false;
-            }
-            if (!find_parameters[5].empty() && !contact.findByEmail(find_parameters[5])) {
-                matches = false;
-            }
-            if (!find_parameters[6].empty() && !contact.findByPhoneNumber(find_parameters[6])) {
-                matches = false;
-            }
-            
-            if (matches) {
-                result.push_back(contact);
-            }
-        }
-    }
-    cout<<"Found "<< result.size() <<" contact(s).\n"<<endl;
-    return result;
-}
 
 void ContactBook::deleteContact(){
     list<Contact> list_to_delete = searchContact();
@@ -147,7 +95,6 @@ void ContactBook::deleteContact(){
             for (auto it = contactBook.begin(); it != contactBook.end(); ) {
                 if (*it == contact_to_delete) {
                     it = contactBook.erase(it);
-                    cout << "Contact deleted." << endl;
                     break;
                 } else {
                     ++it;
@@ -168,7 +115,6 @@ void ContactBook::deleteContact(){
                 for (auto it = contactBook.begin(); it != contactBook.end(); ) {
                     if (*it == contact_to_delete) {
                         it = contactBook.erase(it);
-                        cout << "Contact deleted." << endl;
                         break;
                     } else {
                         ++it;
@@ -181,105 +127,63 @@ void ContactBook::deleteContact(){
 
 void ContactBook::updateContact(){
     list<Contact> list_to_update = searchContact();
-    char global_status, status;
+    char opt;
 
-    cout<<"Want to update contacts? (y/n)"<<endl;
-    cin>>global_status;
-    cin.ignore();
-
-    if (global_status == 'y' || global_status == 'Y'){
-        for (auto contact_to_update = contactBook.begin(); contact_to_update != contactBook.end(); contact_to_update++){
-            for (Contact found_contact : list_to_update){
-                if (*contact_to_update == found_contact){
-                    (*contact_to_update).show();
-                    cout<<"\nWant to update contact? (y/n)"<<endl;
-                    cin>>status;
-                    cin.ignore();
-                    if (status == 'y' || status == 'Y'){
-                        Contact temporary_contact = createContact();
-                        *contact_to_update = temporary_contact;
-                    }
+    for (auto contact_to_update = contactBook.begin(); contact_to_update != contactBook.end(); contact_to_update++){
+        for (Contact found_contact : list_to_update){
+            if (*contact_to_update == found_contact){
+                (*contact_to_update).show();
+                cout<<"\nUpdate contact? (y/n)"<<endl;
+                cin>>opt;
+                cin.ignore();
+                if (opt == 'y' || opt == 'Y'){
+                    Contact temp = createContact();
+                    *contact_to_update = temp;
                 }
             }
         }
-    } 
+    }  
 }
 
-bool ContactBook::compareByFirstName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareFirstName(const Contact& contact1, const Contact& contact2){
     return contact1.get_firstName() < contact2.get_firstName();
 }
 
-bool ContactBook::compareBySecondName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareSecondName(const Contact& contact1, const Contact& contact2){
     return contact1.get_secondName() < contact2.get_secondName();
 }
 
-bool ContactBook::compareByLastName(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareLastName(const Contact& contact1, const Contact& contact2){
     string lastName1 = (contact1.get_lastName().empty() ? "zzzzzzzzzz" : contact1.get_lastName());
     string lastName2 = (contact2.get_lastName().empty() ? "zzzzzzzzzz" : contact2.get_lastName());
     return lastName1 < lastName2;
 }
 
-bool ContactBook::compareByBirthDate(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareBirthDate(const Contact& contact1, const Contact& contact2){
     string date1 = (contact1.get_birthDate().empty() ? "31-12-9999" : contact1.get_birthDate());
     string date2 = (contact2.get_birthDate().empty() ? "31-12-9999" : contact2.get_birthDate());
     return date1 < date2;
 }
 
-bool ContactBook::compareByAddress(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareAddress(const Contact& contact1, const Contact& contact2){
     string address1 = (contact1.get_address().empty() ? "zzzzzzzzzz" : contact1.get_address());
     string address2 = (contact2.get_address().empty() ? "zzzzzzzzzz" : contact2.get_address());
     return address1 < address2;
 }
 
-bool ContactBook::compareByEmail(const Contact& contact1, const Contact& contact2){
+bool ContactBook::compareEmail(const Contact& contact1, const Contact& contact2){
     return contact1.get_email() < contact2.get_email();
 }
 
-bool ContactBook::compareByFirstNameDecr(const Contact& contact1, const Contact& contact2){
-    return contact1.get_firstName() > contact2.get_firstName();
-}
-
-bool ContactBook::compareBySecondNameDecr(const Contact& contact1, const Contact& contact2){
-    return contact1.get_secondName() > contact2.get_secondName();
-}
-
-bool ContactBook::compareByLastNameDecr(const Contact& contact1, const Contact& contact2){
-    string lastName1 = (contact1.get_lastName().empty() ? "zzzzzzzzzz" : contact1.get_lastName());
-    string lastName2 = (contact2.get_lastName().empty() ? "zzzzzzzzzz" : contact2.get_lastName());
-    return lastName1 > lastName2;
-}
-
-bool ContactBook::compareByBirthDateDecr(const Contact& contact1, const Contact& contact2){
-    string date1 = (contact1.get_birthDate().empty() ? "31-12-9999" : contact1.get_birthDate());
-    string date2 = (contact2.get_birthDate().empty() ? "31-12-9999" : contact2.get_birthDate());
-    return date1 > date2;
-}
-
-bool ContactBook::compareByAddressDecr(const Contact& contact1, const Contact& contact2){
-    string address1 = (contact1.get_address().empty() ? "zzzzzzzzzz" : contact1.get_address());
-    string address2 = (contact2.get_address().empty() ? "zzzzzzzzzz" : contact2.get_address());
-    return address1 > address2;
-}
-
-bool ContactBook::compareByEmailDecr(const Contact& contact1, const Contact& contact2){
-    return contact1.get_email() > contact2.get_email();
-}
-
 void ContactBook::showSortMenu(){
-    cout<<"\n------SORT MENU------\n"<<endl;
-    cout << "1. Sort by First Name (A-Z)" << endl;
-    cout << "2. Sort by First Name (Z-A)" << endl;
-    cout << "3. Sort by Second Name (A-Z)" << endl;
-    cout << "4. Sort by Second Name (Z-A)" << endl;
-    cout << "5. Sort by Last Name (A-Z)" << endl;
-    cout << "6. Sort by Last Name (Z-A)" << endl;
-    cout << "7. Sort by Birth Date (oldest first)" << endl;
-    cout << "8. Sort by Birth Date (newest first)" << endl;
-    cout << "9. Sort by Address (A-Z)" << endl;
-    cout << "10. Sort by Address (Z-A)" << endl;
-    cout << "11. Sort by Email (A-Z)" << endl;
-    cout << "12. Sort by Email (Z-A)" << endl;
-    cout << "13. Cancel" << endl;
+    cout<<"\nSORTING CRITERIAS\n"<<endl;
+    cout << "1. Sort by First Name" << endl;
+    cout << "2. Sort by Second Name" << endl;
+    cout << "3. Sort by Last Name" << endl;
+    cout << "4. Sort by Birth Date" << endl;
+    cout << "5. Sort by Address" << endl;
+    cout << "6. Sort by Email" << endl;
+    cout << "7. Cancel sorting" << endl;
     cout << "Choose sorting option: ";
 }
 
@@ -294,42 +198,24 @@ void ContactBook::sortContacts(){
     switch (criteria)
     {
     case 1:
-        contactBook.sort(compareByFirstName);
+        contactBook.sort(compareFirstName);
         break;
     case 2:
-        contactBook.sort(compareByFirstNameDecr);
+        contactBook.sort(compareSecondName);
         break;
     case 3:
-        contactBook.sort(compareBySecondName);
+        contactBook.sort(compareLastName);
         break;
     case 4:
-        contactBook.sort(compareBySecondName);
+        contactBook.sort(compareBirthDate);
         break;
     case 5:
-        contactBook.sort(compareByLastName);
+        contactBook.sort(compareAddress);
         break;
     case 6:
-        contactBook.sort(compareByLastNameDecr);
+        contactBook.sort(compareEmail);
         break;
     case 7:
-        contactBook.sort(compareByBirthDate);
-        break;
-    case 8:
-        contactBook.sort(compareByBirthDateDecr);
-        break;
-    case 9:
-        contactBook.sort(compareByAddress);
-        break;
-    case 10:
-        contactBook.sort(compareByAddressDecr);
-        break;
-    case 11:
-        contactBook.sort(compareByEmail);
-        break;
-    case 12:
-        contactBook.sort(compareByEmailDecr);
-        break;
-    case 13:
         break;
     default:
         cout<<"\nWrong sorting criteria!!\n"<<endl;
@@ -343,4 +229,41 @@ void ContactBook::saveContacts(){
 
 void ContactBook::loadContacts(){
     contactBook = fileStorage.loadFromFile(contactBook);
+}
+
+list<Contact> ContactBook::searchContact(){
+    list<Contact> result;
+    string find_parameters[8];
+    string parametres[7] = {"first name", "second name", "last name", "birth date", "address", "email", "phone number"};
+    char status;
+    
+    cout<<"\nDo you want find through all fields? (y/n)"<<endl;
+    cin>>status;
+    cin.ignore();
+    if (status == 'y' || status == 'Y'){
+        categoryInput("string to find", find_parameters[7], "optional");
+        for (Contact& contact : contactBook){
+            if ((contact).findString(find_parameters[7])){
+                result.push_back(contact);
+            }
+        }
+    } else {
+        for (int i = 0; i < 7; i++){
+            categoryInput(parametres[i], find_parameters[i], "optional");
+        }
+
+        for (Contact& contact : contactBook){
+            bool flag = true;
+            if (!find_parameters[0].empty() && !contact.findFirstName(find_parameters[0])) {flag = false;}
+            if (!find_parameters[1].empty() && !contact.findSecondName(find_parameters[1])) {flag = false;}
+            if (!find_parameters[2].empty() && !contact.findLastName(find_parameters[2])) {flag = false;}
+            if (!find_parameters[3].empty() && !contact.findBirthDate(find_parameters[3])) {flag = false;}
+            if (!find_parameters[4].empty() && !contact.findAddress(find_parameters[4])) {flag = false;}
+            if (!find_parameters[5].empty() && !contact.findEmail(find_parameters[5])) {flag = false;}
+            if (!find_parameters[6].empty() && !contact.findPhoneNumber(find_parameters[6])) {flag = false;}
+            if (flag) {result.push_back(contact);}
+        }
+    }
+    cout<<"Result: "<< result.size() <<" found.\n"<<endl;
+    return result;
 }

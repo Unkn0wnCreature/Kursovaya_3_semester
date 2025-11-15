@@ -40,14 +40,14 @@ class Contact {
     bool isValidDate(const string& date) const;
     bool isValidAddress(const string& address) const;
 
-    bool findByFirstName(const string& string_to_find);
-    bool findBySecondName(const string& string_to_find);
-    bool findByLastName(const string& string_to_find);
-    bool findByBirthDate(const string& string_to_find);
-    bool findByAddress(const string& string_to_find);
-    bool findByEmail(const string& string_to_find);
-    bool findByPhoneNumber(const string& string_to_find);
-    bool findByString(const string& string_to_find);
+    bool findFirstName(const string& string_to_find);
+    bool findSecondName(const string& string_to_find);
+    bool findLastName(const string& string_to_find);
+    bool findBirthDate(const string& string_to_find);
+    bool findAddress(const string& string_to_find);
+    bool findEmail(const string& string_to_find);
+    bool findPhoneNumber(const string& string_to_find);
+    bool findString(const string& string_to_find);
 
     string normalizePhoneNumber(const string& PhoneNumber);
     string trim_string(const string& string) const;

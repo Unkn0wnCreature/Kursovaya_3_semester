@@ -46,8 +46,6 @@ list<Contact> FileManager::loadFromFile(const list<Contact>& contact_book){
             contacts.push_back(contact);
         }
         file.close();
-        cout<<"\nSuccesfully loaded"<<endl;
-
     }
     return contacts;
 }
@@ -76,7 +74,6 @@ bool FileManager::saveToFile(const list<Contact>& contact_book){
             file<<"+++++++++"<<endl;
         }
         file.close();
-        cout<<"\nSuccessfully saved"<<endl;
         return true;
     }
 }
