@@ -1,4 +1,4 @@
-#include "contact.h"
+#include "Contact.h"
 #include <regex>
 #include <stdexcept>
 #include <ctime>
@@ -28,9 +28,9 @@ Contact::~Contact(){}
 void Contact::show(){
     cout<<"First name: " << firstName <<endl;
     cout<<"Second name: " << secondName <<endl;
-    cout<<"Last name: " << ((lastName.empty()) ? "Not stated":lastName) <<endl;
-    cout<<"Birth date: " << ((birthDate.empty()) ? "Not stated":birthDate) <<endl;
-    cout<<"Address: " << ((address.empty()) ? "Not stated":address) <<endl;
+    cout<<"Last name: " << ((lastName.empty()) ? "":lastName) <<endl;
+    cout<<"Birth date: " << ((birthDate.empty()) ? "":birthDate) <<endl;
+    cout<<"Address: " << ((address.empty()) ? "":address) <<endl;
     cout<<"Email: " << email <<endl;
     cout<<"Phone numbers: "<<endl;
     for (string phone_number : list_of_phone_numbers){
@@ -47,41 +47,40 @@ string Contact::get_email() const {return email;}
 list<string> Contact::get_list_of_phones() const {return list_of_phone_numbers;}
 
 bool Contact::set_firstName(string& firstName){
-    string trimmed = trim_string(firstName);
+    string trimmed = normer(firstName);
     if (!isValidName(trimmed)){return false;}
     this->firstName = trimmed;
     return true;
-
 }
 
 bool Contact::set_secondName(string& secondName){
-    string trimmed = trim_string(secondName);
+    string trimmed = normer(secondName);
     if (!isValidName(trimmed)){return false;}
     this->secondName = trimmed;
     return true;
 }
 
 bool Contact::set_lastName(string& lastName){
-    string trimmed = trim_string(lastName);
+    string trimmed = normer(lastName);
     if (!isValidName(trimmed)){return false;}
     this->lastName = trimmed;
     return true;
 }
 
 bool Contact::set_birthDate(string& birthDate){
-    string trimmed = trim_string(birthDate);
+    string trimmed = normer(birthDate);
     if (!isValidDate(trimmed)){return false;}
     this->birthDate = trimmed;
     return true;
 }
 
 bool Contact::set_address(string& address){
-    this->address = trim_string(address);
+    this->address = normer(address);
     return true;
 }
 
 bool Contact::set_email(string& email){
-    string trimmed = trim_string(email);
+    string trimmed = normer(email);
     if (!isValidEmail(trimmed)){return false;}
     this->email = trimmed;
     return true;
@@ -90,7 +89,7 @@ bool Contact::set_email(string& email){
 bool Contact::set_list_of_phones(list<string> list_of_phones){
     list<string> temp_list_of_phones;
     for (string str : list_of_phones){
-        string trimmed = trim_string(str);
+        string trimmed = normer(str);
         if (!isValidPhone(trimmed)){return false;}
         
         temp_list_of_phones.emplace_back(trimmed);
@@ -105,12 +104,12 @@ bool Contact::isValidName(const string& name) const {
     if (name.empty()) return true;
     
     regex pattern("^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9\\-\\s]*[a-zA-Zа-яА-Я0-9]$");
-        return regex_match(trim_string(name), pattern);
+        return regex_match(normer(name), pattern);
 }
 
 bool Contact::isValidEmail(const string& email) const {
     regex pattern("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$");
-    return regex_match(trim_string(email), pattern);
+    return regex_match(normer(email), pattern);
 }
 
 bool Contact::isValidPhone(const string& phoneNumber) const {
@@ -121,7 +120,7 @@ bool Contact::isValidPhone(const string& phoneNumber) const {
     
     
     regex pattern("^(\\+7|8)[\\s(-]*(\\d{3})[\\s)-]*(\\d{3})[\\s-]*(\\d{2})[\\s-]*(\\d{2})$");
-    return regex_match(trim_string(cleanPhone), pattern);
+    return regex_match(normer(cleanPhone), pattern);
 }
 
 bool Contact::isValidDate(const string& date) const {
@@ -162,38 +161,14 @@ bool Contact::isValidAddress(const string& address) const{
     if (address.empty()){return true;}
 
     regex pattern("^[a-zA-Zа-яА-Я0-9\\s\\-,.#№()/]+$");
-    return regex_match(trim_string(address), pattern);
+    return regex_match(normer(address), pattern);
 }
 
-string Contact::normalizePhoneNumber(const string& phoneNumber){
-    string result;
-    for (char c : phoneNumber) {
-        if (std::isdigit(c) || c == '+') {
-            result += c;
-        }
-    }
-    
-    if (result.length() == 11 && result[0] == '8') {
-        result[0] = '7';
-        result = "+" + result;
-    } else if (result.length() == 10) {
-        result = "+7" + result;
-    }
-    
-    return result;
-}
-
-string Contact::trim_string(const string& string) const{
+string Contact::normer(const string& string) const{
     size_t start = string.find_first_not_of(" \t\n\r");
     size_t end = string.find_last_not_of(" \t\n\r");
     if (start == string::npos){return "";}
     return string.substr(start, end - start + 1);
-}
-
-bool Contact::addPhoneNumber(const string& phoneNumber){
-    if (!isValidPhone(phoneNumber)){return false;}
-    list_of_phone_numbers.push_back(phoneNumber);
-    return true;
 }
 
 Contact& Contact::operator=(const Contact& other){
@@ -261,4 +236,10 @@ bool Contact::findString(const string& string_to_find){
     return ((findFirstName(string_to_find) || findSecondName(string_to_find) ||
         findLastName(string_to_find) || findBirthDate(string_to_find) || findAddress(string_to_find) ||
             findEmail(string_to_find) || findPhoneNumber(string_to_find)));
+}
+
+bool Contact::addPhoneNumber(const string& phoneNumber){
+    if (!isValidPhone(phoneNumber)){return false;}
+    list_of_phone_numbers.push_back(phoneNumber);
+    return true;
 }

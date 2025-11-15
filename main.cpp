@@ -1,10 +1,8 @@
 #include <iostream>
-#include "contact_book.h"
-#include "contact.h"
-#include "file_manager.h"
-#include "contact_book.cpp"
-#include "contact.cpp"
-#include "file_manager.cpp"
+#include "Contacts.h"
+#include "Contact.h"
+#include "Contacts.cpp"
+#include "Contact.cpp"
 using namespace std;
 
 void showMenu();
@@ -39,31 +37,31 @@ void run_app(ContactBook& contact_book){
     while (option > 0 && option < 7){
         switch (option){
             case 1:
-                contact_book.loadContacts();
+                contact_book.load();
                 contact_book.showContacts();
                 break;
             case 2:
-                contact_book.loadContacts();
+                contact_book.load();
                 contact_book.addContact(contact_book.createContact());
-                contact_book.saveContacts();
+                contact_book.save(contact_book);
                 break;
             case 3:
-                contact_book.loadContacts();
-                contact_book.deleteContact();
-                contact_book.saveContacts();
+                contact_book.load();
+                contact_book.update();
+                contact_book.save(contact_book);
                 break;
             case 4:
-                contact_book.loadContacts();
-                contact_book.updateContact();
-                contact_book.saveContacts();
+                contact_book.load();
+                contact_book.delete_contact();
+                contact_book.save(contact_book);
                 break;
             case 5:
-                contact_book.loadContacts();
+                contact_book.load();
                 contact_book.sortContacts();
-                contact_book.saveContacts();
+                contact_book.save(contact_book);
                 break;
             case 6:
-                contact_book.saveContacts();
+                contact_book.save(contact_book);
                 return;
         }
         showMenu();
