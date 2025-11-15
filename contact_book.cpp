@@ -1,4 +1,4 @@
-#include "ContactBook.h"
+#include "contact_book.h"
 #include <algorithm>
 #include <iostream>
 using namespace std;
@@ -21,7 +21,7 @@ void ContactBook::categoryInput(string category, string& inputString, string sta
     getline(cin, inputString);
 }
 
-Contact ContactBook::createContactByInput(){
+Contact ContactBook::createContact(){
     Contact contact;
     string firstName, secondName, lastName, birthDate, address, email, phone_number;
 
@@ -196,7 +196,7 @@ void ContactBook::updateContact(){
                     cin>>status;
                     cin.ignore();
                     if (status == 'y' || status == 'Y'){
-                        Contact temporary_contact = createContactByInput();
+                        Contact temporary_contact = createContact();
                         *contact_to_update = temporary_contact;
                     }
                 }
@@ -341,6 +341,6 @@ void ContactBook::saveContacts(){
     if (!fileStorage.saveToFile(contactBook)){cout<<"\nError: can't open file!\n"<<endl;}
 }
 
-void ContactBook::loadContacts(ContactBook& contact_book){
+void ContactBook::loadContacts(){
     contactBook = fileStorage.loadFromFile(contactBook);
 }

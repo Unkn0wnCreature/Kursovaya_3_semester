@@ -1,6 +1,6 @@
 #pragma once
 #include "Contact.h"
-#include "FileStorage.h"
+#include "file_manager.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -10,7 +10,7 @@ enum SearchCriteria{FIRST_NAME = 1, SECOND_NAME, LAST_NAME, BIRTH_DATE, ADDRESS,
 class ContactBook {
     private:
     list<Contact> contactBook;
-    FileStorage fileStorage;
+    FileManager fileStorage;
     public:
     ContactBook(list<Contact> contactBook = {});
     ContactBook(const ContactBook& contact_book);
@@ -18,13 +18,16 @@ class ContactBook {
 
     size_t get_size() const;
 
-    void categoryInput(string category, string& inputString, string status = "compulsory");
-    Contact createContactByInput();
+    
+    Contact createContact();
     void showContacts();
     bool addContact(const Contact& contact);
     list<Contact> searchContact();
     void deleteContact();
     void updateContact();
+
+    void showSortMenu();
+    void sortContacts();
 
     static bool compareByFirstName(const Contact& contact1, const Contact& contact2);
     static bool compareBySecondName(const Contact& contact1, const Contact& contact2);
@@ -39,9 +42,8 @@ class ContactBook {
     static bool compareByAddressDecr(const Contact& contact1, const Contact& contact2);
     static bool compareByEmailDecr(const Contact& contact1, const Contact& contact2);
 
-    void showSortMenu();
-    void sortContacts();
-
     void saveContacts();
-    void loadContacts(ContactBook& contactBook);
+    void loadContacts();
+
+    void categoryInput(string category, string& inputString, string status = "compulsory");
 };

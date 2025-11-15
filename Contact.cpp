@@ -1,10 +1,10 @@
-#include "Contact.h"
+#include "contact.h"
 #include <regex>
 #include <stdexcept>
 #include <ctime>
 using namespace std;
 
-Contact::Contact(string firstName, string secondName, string email, list<string> list_of_phone_numbers, string lastName, string birthDate, string address){
+Contact::Contact(string firstName, string secondName, string lastName, string birthDate, string address, string email, list<string> list_of_phone_numbers){
     this->firstName = firstName;
     this->secondName = secondName;
     this->lastName = lastName;
@@ -26,7 +26,7 @@ Contact::Contact(const Contact& c){
 Contact::~Contact(){}
 
 bool Contact::set_firstName(string& firstName){
-    string trimmed = trim(firstName);
+    string trimmed = trim_string(firstName);
     if (!isValidName(trimmed)){return false;}
     this->firstName = trimmed;
     return true;
@@ -34,33 +34,33 @@ bool Contact::set_firstName(string& firstName){
 }
 
 bool Contact::set_secondName(string& secondName){
-    string trimmed = trim(secondName);
+    string trimmed = trim_string(secondName);
     if (!isValidName(trimmed)){return false;}
     this->secondName = trimmed;
     return true;
 }
 
 bool Contact::set_lastName(string& lastName){
-    string trimmed = trim(lastName);
+    string trimmed = trim_string(lastName);
     if (!isValidName(trimmed)){return false;}
     this->lastName = trimmed;
     return true;
 }
 
 bool Contact::set_birthDate(string& birthDate){
-    string trimmed = trim(birthDate);
+    string trimmed = trim_string(birthDate);
     if (!isValidDate(trimmed)){return false;}
     this->birthDate = trimmed;
     return true;
 }
 
 bool Contact::set_address(string& address){
-    this->address = trim(address);
+    this->address = trim_string(address);
     return true;
 }
 
 bool Contact::set_email(string& email){
-    string trimmed = trim(email);
+    string trimmed = trim_string(email);
     if (!isValidEmail(trimmed)){return false;}
     this->email = trimmed;
     return true;
@@ -69,7 +69,7 @@ bool Contact::set_email(string& email){
 bool Contact::set_list_of_phones(list<string> list_of_phones){
     list<string> temp_list_of_phones;
     for (string str : list_of_phones){
-        string trimmed = trim(str);
+        string trimmed = trim_string(str);
         if (!isValidPhone(trimmed)){return false;}
         
         temp_list_of_phones.emplace_back(trimmed);
@@ -92,12 +92,12 @@ bool Contact::isValidName(const string& name) const {
     if (name.empty()) return true;
     
     regex pattern("^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9\\-\\s]*[a-zA-Zа-яА-Я0-9]$");
-        return regex_match(trim(name), pattern);
+        return regex_match(trim_string(name), pattern);
 }
 
 bool Contact::isValidEmail(const string& email) const {
     regex pattern("^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$");
-    return regex_match(trim(email), pattern);
+    return regex_match(trim_string(email), pattern);
 }
 
 bool Contact::isValidPhone(const string& phoneNumber) const {
@@ -108,7 +108,7 @@ bool Contact::isValidPhone(const string& phoneNumber) const {
     
     
     regex pattern("^(\\+7|8)[\\s(-]*(\\d{3})[\\s)-]*(\\d{3})[\\s-]*(\\d{2})[\\s-]*(\\d{2})$");
-    return regex_match(trim(cleanPhone), pattern);
+    return regex_match(trim_string(cleanPhone), pattern);
 }
 
 bool Contact::isValidDate(const string& date) const {
@@ -149,7 +149,7 @@ bool Contact::isValidAddress(const string& address) const{
     if (address.empty()){return true;}
 
     regex pattern("^[a-zA-Zа-яА-Я0-9\\s\\-,.#№()/]+$");
-    return regex_match(trim(address), pattern);
+    return regex_match(trim_string(address), pattern);
 }
 
 string Contact::normalizePhoneNumber(const string& phoneNumber){
@@ -170,7 +170,7 @@ string Contact::normalizePhoneNumber(const string& phoneNumber){
     return result;
 }
 
-string Contact::trim(const string& string) const{
+string Contact::trim_string(const string& string) const{
     size_t start = string.find_first_not_of(" \t\n\r");
     size_t end = string.find_last_not_of(" \t\n\r");
     if (start == string::npos){return "";}
