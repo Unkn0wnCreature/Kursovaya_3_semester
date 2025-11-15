@@ -3,8 +3,6 @@
 #include <list>
 using namespace std;
 
-
-
 class Contact {
     private:
     string firstName;
@@ -16,7 +14,6 @@ class Contact {
     list<string> list_of_phone_numbers;
 
     public:
-    //Contact(string firstName = "", string secondName = "", string email = "", string phoneNumber = "");
     Contact(string firstName = "", string secondName = "", string email = "", list<string> list_of_phone_numbers = {}, string lastName = "", string birthDate = "", string address = "");
     Contact(const Contact &c);
     ~Contact();
@@ -36,8 +33,6 @@ class Contact {
     string get_address() const;
     string get_email() const;
     list<string> get_list_of_phones() const;
-
-    //Contact get_contact();
 
     bool isValidName(const string& name) const;
     bool isValidEmail(const string& email) const;

@@ -89,7 +89,7 @@ string Contact::get_email() const {return email;}
 list<string> Contact::get_list_of_phones() const {return list_of_phone_numbers;}
 
 bool Contact::isValidName(const string& name) const {
-    if (name.empty()) return true; // Отчество может быть пустым
+    if (name.empty()) return true;
     
     regex pattern("^[a-zA-Zа-яА-Я][a-zA-Zа-яА-Я0-9\\-\\s]*[a-zA-Zа-яА-Я0-9]$");
         return regex_match(trim(name), pattern);
@@ -100,19 +100,19 @@ bool Contact::isValidEmail(const string& email) const {
     return regex_match(trim(email), pattern);
 }
 
-bool Contact::isValidPhone(const std::string& phoneNumber) const {
-    // Убираем все нецифровые символы кроме + для проверки
+bool Contact::isValidPhone(const string& phoneNumber) const {
+    
     string cleanPhone = phoneNumber;
     cleanPhone.erase(remove_if(cleanPhone.begin(), cleanPhone.end(),
                      [](char c) { return !isdigit(c) && c != '+'; }), cleanPhone.end());
     
-    // Проверяем различные форматы номеров
+    
     regex pattern("^(\\+7|8)[\\s(-]*(\\d{3})[\\s)-]*(\\d{3})[\\s-]*(\\d{2})[\\s-]*(\\d{2})$");
     return regex_match(trim(cleanPhone), pattern);
 }
 
 bool Contact::isValidDate(const string& date) const {
-    // Формат: DD-MM-YYYY
+    
     if (date.empty() || date == "") return true;
     if (date.length() != 10) return false;
     if (date[2] != '-' || date[5] != '-') return false;
@@ -124,18 +124,18 @@ bool Contact::isValidDate(const string& date) const {
     } catch (...) {
         return false;
     }
-    // Проверка диапазонов
+    
     if (month < 1 || month > 12) return false;
     if (day < 1 || day > 31) return false;
-    // Проверка високосного года и количества дней в месяце
+    
     int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-        daysInMonth[1] = 29; // Февраль в високосный год
+        daysInMonth[1] = 29;
     }
     if (day > daysInMonth[month - 1]) return false;
-    // Проверка что дата не в будущем
-    std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
+    
+    time_t t = std::time(nullptr);
+    tm* now = std::localtime(&t);
     int currentYear = now->tm_year + 1900;
     int currentMonth = now->tm_mon + 1;
     int currentDay = now->tm_mday;
@@ -160,7 +160,6 @@ string Contact::normalizePhoneNumber(const string& phoneNumber){
         }
     }
     
-    // Приводим к формату +7XXXXXXXXXX
     if (result.length() == 11 && result[0] == '8') {
         result[0] = '7';
         result = "+" + result;

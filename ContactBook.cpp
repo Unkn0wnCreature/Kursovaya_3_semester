@@ -104,7 +104,6 @@ list<Contact> ContactBook::searchContact(){
 
         for (Contact& contact : contactBook){
             bool matches = true;
-            // Проверяем каждое поле только если указан поисковый запрос
             if (!find_parameters[0].empty() && !contact.findByFirstName(find_parameters[0])) {
                 matches = false;
             }
@@ -339,7 +338,7 @@ void ContactBook::sortContacts(){
 }
 
 void ContactBook::saveContacts(){
-    fileStorage.saveToFile(contactBook);
+    if (!fileStorage.saveToFile(contactBook)){cout<<"\nError: can't open file!\n"<<endl;}
 }
 
 void ContactBook::loadContacts(ContactBook& contact_book){
