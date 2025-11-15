@@ -14,6 +14,8 @@ ContactBook::ContactBook(const ContactBook& contact_book){
 
 ContactBook::~ContactBook(){};
 
+size_t ContactBook::get_size() const {return contactBook.size();}
+
 void ContactBook::categoryInput(string category, string& inputString, string status){
     cout<<"Enter "<< category <<" ("<< status <<"):"<<endl;
     getline(cin, inputString);
@@ -334,4 +336,12 @@ void ContactBook::sortContacts(){
         cout<<"\nWrong sorting criteria!!\n"<<endl;
         return;
     }
+}
+
+void ContactBook::saveContacts(){
+    fileStorage.saveToFile(contactBook);
+}
+
+void ContactBook::loadContacts(ContactBook& contact_book){
+    contactBook = fileStorage.loadFromFile(contactBook);
 }
