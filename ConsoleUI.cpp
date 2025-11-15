@@ -19,6 +19,8 @@ void ConsoleUI::show(){
 void ConsoleUI::run(ContactBook& contactBook){
     int option;
 
+    contactBook.loadContacts(contactBook);
+
     show();
     cin>>option;
     cin.ignore();
@@ -30,15 +32,19 @@ void ConsoleUI::run(ContactBook& contactBook){
                 break;
             case 2:
                 contactBook.addContact(contactBook.createContactByInput());
+                contactBook.saveContacts();
                 break;
             case 3:
                 contactBook.deleteContact();
+                contactBook.saveContacts();
                 break;
             case 4:
                 contactBook.updateContact();
+                contactBook.saveContacts();
                 break;
             case 5:
                 contactBook.sortContacts();
+                contactBook.saveContacts();
                 break;
             case 6:
                 cout<<"Programm finished!"<<endl;
