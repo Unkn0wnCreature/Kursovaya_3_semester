@@ -140,7 +140,7 @@ void ContactBook::deleteContact(){
     list<Contact> list_to_delete = searchContact();
     char delete_all_status, status;
 
-    cout<<"\nWant to delete all? (y/n)"<<endl;
+    cout<<"Want to delete all? (y/n)"<<endl;
         cin>>delete_all_status;
         cin.ignore();
     if (delete_all_status == 'y' || delete_all_status == 'Y'){
