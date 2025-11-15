@@ -18,11 +18,11 @@ int main(){
 
 void showMenu(){
     cout<<"\nMENU\n"<<endl;
-    cout<<"1. Show all contacts."<<endl;
-    cout<<"2. Add contact."<<endl;
-    cout<<"3. Update contacts."<<endl;
-    cout<<"4. Delete contacts."<<endl;
-    cout<<"5. Sort contacts."<<endl;
+    cout<<"1. Show all."<<endl;
+    cout<<"2. Add."<<endl;
+    cout<<"3. Update."<<endl;
+    cout<<"4. Delete."<<endl;
+    cout<<"5. Sort."<<endl;
     cout<<"6. End"<<endl;
     cout<<"\nOption: ";
 }
